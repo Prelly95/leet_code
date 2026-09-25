@@ -1,0 +1,10 @@
+{
+  "_comment": "LeetCode 15 — 3Sum. Order of triplets doesn't matter.",
+  "unordered": true,
+  "cases": [
+    {"input": {"nums": [-1, 0, 1, 2, -1, -4]}, "output": [[-1, -1, 2], [-1, 0, 1]]},
+    {"input": {"nums": [0, 1, 1]}, "output": []},
+    {"input": {"nums": [0, 0, 0]}, "output": [[0, 0, 0]]},
+    {"input": {"nums": [1, 2, 0, 1, 0, 0, 0, 0]}, "output": [[0, 0, 0]]}
+  ]
+}

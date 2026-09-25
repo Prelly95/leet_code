@@ -1,0 +1,11 @@
+{
+  "_comment": "LeetCode 3 — Longest Substring Without Repeating Characters",
+  "cases": [
+    {"input": {"s": "abcabcbb"}, "output": 3},
+    {"input": {"s": "a"}, "output": 1},
+    {"input": {"s": "abbc"}, "output": 2},
+    {"input": {"s": "s"}, "output": 1},
+    {"input": {"s": "eea"}, "output": 2},
+    {"input": {"s": "abcadef"}, "output": 6}
+  ]
+}

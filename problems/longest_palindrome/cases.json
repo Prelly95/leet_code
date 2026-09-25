@@ -1,0 +1,11 @@
+{
+  "_comment": "LeetCode 5 — Longest Palindromic Substring. Where several answers are valid, these expect the ones this solution returns.",
+  "cases": [
+    {"input": {"s": "babad"}, "output": "bab"},
+    {"input": {"s": "a"}, "output": "a"},
+    {"input": {"s": "bb"}, "output": "bb"},
+    {"input": {"s": "racecar"}, "output": "racecar"},
+    {"input": {"s": "hellworldlrow"}, "output": "worldlrow"},
+    {"input": {"s": "rewrtat"}, "output": "tat"}
+  ]
+}

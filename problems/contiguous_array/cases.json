@@ -1,0 +1,9 @@
+{
+  "_comment": "LeetCode 525 — Contiguous Array (Medium). https://leetcode.com/problems/contiguous-array/description/",
+  "unordered": false,
+  "cases": [
+    {"input": {"nums": [0, 1]}, "output": 2},
+    {"input": {"nums": [0, 1, 0]}, "output": 2},
+    {"input": {"nums": [0, 1, 1, 1, 1, 1, 0, 0, 0]}, "output": 6}
+  ]
+}

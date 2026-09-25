@@ -1,0 +1,8 @@
+{
+  "_comment": "LeetCode 560 — Subarray Sum Equals K",
+  "cases": [
+    {"input": {"nums": [1, 2, 1, 2, 1, 2], "k": 3}, "output": 5},
+    {"input": {"nums": [1, 1, 1], "k": 2}, "output": 2},
+    {"input": {"nums": [1, 2, 3], "k": 3}, "output": 2}
+  ]
+}

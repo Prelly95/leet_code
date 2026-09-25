@@ -1,0 +1,9 @@
+{
+  "_comment": "LeetCode 41 — First Missing Positive (Hard). https://leetcode.com/problems/first-missing-positive/description/",
+  "unordered": false,
+  "cases": [
+    {"input": {"nums": [1, 2, 0]}, "output": 3},
+    {"input": {"nums": [3, 4, -1, 1]}, "output": 2},
+    {"input": {"nums": [7, 8, 9, 11, 12]}, "output": 1}
+  ]
+}

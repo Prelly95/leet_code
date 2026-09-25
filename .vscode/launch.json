@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // F5 while a problem's <name>.py is open: runs its cases.json
+            // through the harness. Set breakpoints in the solution; exceptions
+            // aren't swallowed, so a crash drops you at the failing line.
+            "name": "Debug current problem",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/leet.py",
+            "args": ["debug", "${fileBasenameNoExtension}"],
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        }
+    ]
+}

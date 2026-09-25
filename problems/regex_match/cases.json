@@ -1,0 +1,19 @@
+{
+  "_comment": "LeetCode 10 — Regular Expression Matching",
+  "cases": [
+    {"input": {"s": "aaaa", "p": "a*a*"}, "output": true},
+    {"input": {"s": "aaaa", "p": "a*a"}, "output": true},
+    {"input": {"s": "a", "p": "ab*a"}, "output": false},
+    {"input": {"s": "aab", "p": "c*a*b"}, "output": true},
+    {"input": {"s": "ab", "p": ".*c"}, "output": false},
+    {"input": {"s": "ab", "p": ".*"}, "output": true},
+    {"input": {"s": "aa", "p": "a*"}, "output": true},
+    {"input": {"s": "mississippi", "p": "mis*is*ip*."}, "output": true},
+    {"input": {"s": "mississippi", "p": "mis*is*p*."}, "output": false},
+    {"input": {"s": "aaa", "p": "aaaa"}, "output": false},
+    {"input": {"s": "aaa", "p": "aaa"}, "output": true},
+    {"input": {"s": "", "p": "a*"}, "output": true},
+    {"input": {"s": "a", "p": "ab*"}, "output": true},
+    {"input": {"s": "aaaaaaaaaaaaaaaaaaab", "p": "a*a*a*a*a*a*a*a*a*a*"}, "output": false}
+  ]
+}
