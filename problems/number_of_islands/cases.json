@@ -1,0 +1,8 @@
+{
+  "_comment": "LeetCode 200 — Number of Islands (Medium). https://leetcode.com/problems/number-of-islands/",
+  "unordered": false,
+  "cases": [
+    {"input": {"grid": [["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]}, "output": 1},
+    {"input": {"grid": [["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]}, "output": 3}
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "_comment": "LeetCode 242 — Valid Anagram (Easy). https://leetcode.com/problems/valid-anagram/",
+  "unordered": false,
+  "cases": [
+    {"input": {"s": "anagram", "t": "nagaram"}, "output": true},
+    {"input": {"s": "rat", "t": "car"}, "output": false}
+  ]
+}

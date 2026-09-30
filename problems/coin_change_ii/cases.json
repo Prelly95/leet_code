@@ -1,0 +1,9 @@
+{
+  "_comment": "LeetCode 518 — Coin Change II (Medium). https://leetcode.com/problems/coin-change-ii/",
+  "unordered": false,
+  "cases": [
+    {"input": {"amount": 5, "coins": [1, 2, 5]}, "output": 4},
+    {"input": {"amount": 3, "coins": [2]}, "output": 0},
+    {"input": {"amount": 10, "coins": [10]}, "output": 1}
+  ]
+}

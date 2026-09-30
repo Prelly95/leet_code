@@ -1,0 +1,11 @@
+{
+  "_comment": "LeetCode 20 — Valid Parentheses (Easy). https://leetcode.com/problems/valid-parentheses/",
+  "unordered": false,
+  "cases": [
+    {"input": {"s": "()"}, "output": true},
+    {"input": {"s": "()[]{}"}, "output": true},
+    {"input": {"s": "(]"}, "output": false},
+    {"input": {"s": "([])"}, "output": true},
+    {"input": {"s": "([)]"}, "output": false}
+  ]
+}
