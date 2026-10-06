@@ -1,0 +1,9 @@
+{
+  "_comment": "LeetCode 49 — Group Anagrams (Medium). https://leetcode.com/problems/group-anagrams/description/",
+  "unordered": true,
+  "cases": [
+    {"input": {"strs": ["eat", "tea", "tan", "ate", "nat", "bat"]}, "output": [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]},
+    {"input": {"strs": [""]}, "output": [[""]]},
+    {"input": {"strs": ["a"]}, "output": [["a"]]}
+  ]
+}
