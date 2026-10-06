@@ -16,7 +16,7 @@ class ListNode:
         return res
 
     @staticmethod
-    def new_linked_list(arr=None) -> ListNode | None:
+    def new_linked_list(arr=None) -> "ListNode" | None:
         start = None
         if arr is not None and len(arr) > 0:
             start = ListNode(arr[0])
@@ -29,7 +29,7 @@ class ListNode:
 
 class Solution:
     def martial_inputs(
-        self, list1: List[int] | None, list2: List[int] | None
+        self, list1: list[int] | None, list2: list[int] | None
     ):
 
         output = self.mergeTwoLists(ListNode.new_linked_list(list1), ListNode.new_linked_list(list2))

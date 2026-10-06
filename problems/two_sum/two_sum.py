@@ -11,3 +11,6 @@ class Solution:
                 return [hist[t], ii]
             else:
                 hist[n] = ii
+
+        # Impossible according to the problem constraints
+        return [-1, -1]

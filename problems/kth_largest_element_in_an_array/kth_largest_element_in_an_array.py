@@ -45,7 +45,7 @@ class Solution:
         # bubble down
         parent_index = 0
         smaller_child = self.get_smaller_index(heap, parent_index)
-        while smaller_child != None:
+        while smaller_child is not None:
             if heap[smaller_child] >= heap[parent_index]:
                 break
             self.swap_values(heap, smaller_child, parent_index)

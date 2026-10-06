@@ -5,7 +5,7 @@ from __future__ import annotations
 import importlib.util
 import sys
 import traceback
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 from .cases import Suite, load_cases
