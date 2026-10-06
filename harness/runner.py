@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import importlib.util
+import inspect
 import sys
 import traceback
+import typing
 from dataclasses import dataclass
 from pathlib import Path
 
 from .cases import Suite, load_cases
+from .structures import CODECS, Codec
 
 GREEN = "\033[32m"
 RED = "\033[31m"
@@ -86,6 +89,55 @@ def _find_entry(module, problem_name: str) -> str:
     )
 
 
+def _codec_for(annotation) -> Codec | None:
+    """Find the registered codec for an annotation, looking inside ``X | None``."""
+    if annotation in CODECS:
+        return CODECS[annotation]
+    for arg in typing.get_args(annotation):
+        if arg in CODECS:
+            return CODECS[arg]
+    return None
+
+
+@dataclass
+class Marshaller:
+    """Decodes raw-list args into structures and encodes a structure result back.
+
+    Built from the entry method's type annotations; a no-op for the common case
+    where the solution uses only plain types (list/int/str/...).
+    """
+
+    pos: list[Codec | None]      # codec per positional parameter (excluding self)
+    by_name: dict[str, Codec]    # codec per keyword parameter name
+    returns: Codec | None        # codec for the return value, if any
+
+    def decode(self, args: list, kwargs: dict) -> tuple[list, dict]:
+        new_args = [
+            (self.pos[i].decode(v) if i < len(self.pos) and self.pos[i] else v)
+            for i, v in enumerate(args)
+        ]
+        new_kwargs = {
+            k: (self.by_name[k].decode(v) if k in self.by_name else v)
+            for k, v in kwargs.items()
+        }
+        return new_args, new_kwargs
+
+    def encode(self, result):
+        return self.returns.encode(result) if self.returns else result
+
+
+def _build_marshaller(func) -> Marshaller:
+    """Inspect ``func``'s annotations to decide what to marshal at the boundary."""
+    try:
+        hints = typing.get_type_hints(func)
+    except Exception:
+        hints = {}  # unresolvable annotations: fall back to passing values through
+    params = [p for p in inspect.signature(func).parameters.values() if p.name != "self"]
+    pos = [_codec_for(hints.get(p.name)) for p in params]
+    by_name = {p.name: c for p, c in zip(params, pos) if c}
+    return Marshaller(pos=pos, by_name=by_name, returns=_codec_for(hints.get("return")))
+
+
 def _deep_sort(value):
     """Recursively sort lists so unordered results compare equal."""
     if isinstance(value, list):
@@ -128,6 +180,7 @@ def run_problem(problem_dir: Path, *, verbose: bool = True, catch: bool = True) 
     try:
         module = _load_module(solution_file)
         entry_name = _find_entry(module, name)
+        marshaller = _build_marshaller(getattr(module.Solution, entry_name))
     except Exception as exc:  # import/entry problems fail the whole suite
         print(f"  {RED}failed to load solution: {exc}{RESET}")
         result.errors += len(suite.cases)
@@ -135,10 +188,11 @@ def run_problem(problem_dir: Path, *, verbose: bool = True, catch: bool = True) 
 
     for case in suite.cases:
         label = f"case {case.name}"
+        args, kwargs = marshaller.decode(case.args, case.kwargs)
         if catch:
             try:
                 method = getattr(module.Solution(), entry_name)
-                got = method(*case.args, **case.kwargs)
+                got = marshaller.encode(method(*args, **kwargs))
             except Exception:
                 result.errors += 1
                 print(f"  {RED}✗ {label} raised{RESET}")
@@ -148,7 +202,7 @@ def run_problem(problem_dir: Path, *, verbose: bool = True, catch: bool = True) 
         else:
             # Let the exception propagate so a debugger breaks at the throw.
             method = getattr(module.Solution(), entry_name)
-            got = method(*case.args, **case.kwargs)
+            got = marshaller.encode(method(*args, **kwargs))
 
         unordered = suite.unordered if case.unordered is None else case.unordered
         if _matches(got, case.expected, unordered):

@@ -113,6 +113,39 @@ The runner calls one method on your `Solution`. It picks, in order:
 If your file has several public methods and none matches the folder name, set
 `ENTRY` explicitly (see `problems/regex_match/regex_match.py`).
 
+## Special input types (ListNode / TreeNode)
+
+Some problems take or return a linked list or a binary tree, but `cases.json`
+stores the raw values as plain lists (exactly like the LeetCode examples). You
+don't write any conversion code — import the type and annotate your method, and
+the harness decodes each list argument into the structure before calling you,
+then encodes a structure result back to a list to compare against `output`:
+
+```python
+from harness.structures import ListNode
+
+class Solution:
+    def mergeTwoLists(self, list1: ListNode | None, list2: ListNode | None) -> ListNode | None:
+        ...
+```
+
+`cases.json` stays plain lists — `{"input": {"list1": [1, 2, 4], "list2": [1, 3, 4]}, "output": [1, 1, 2, 3, 4, 4]}`.
+`TreeNode` works the same way, using LeetCode's level-order format (e.g.
+`[3, 9, 20, null, null, 15, 7]`). The conversion is driven purely by the type
+annotation, so it also sees types inside `X | None`.
+
+### Adding a new type
+
+To support another LeetCode structure (say the graph `Node`), edit
+`harness/structures.py`:
+
+1. Define the class with a `from_list(values)` classmethod (raw list →
+   structure) and a `to_list(obj)` staticmethod (structure → raw list, must
+   accept `None`), matching how LeetCode serialises it.
+2. Register it: `register(Node, decode=Node.from_list, encode=Node.to_list)`.
+
+Then annotate your solution with `Node` and it just works — no runner changes.
+
 ## Layout
 
 ```
@@ -121,6 +154,7 @@ leet.py                 the harness CLI
 harness/
   cases.py              parses cases.json
   runner.py             loads a Solution and runs its cases
+  structures.py         ListNode / TreeNode and their list codecs
   leetcode.py           imports a problem from its LeetCode URL
 completions/
   just-leet.bash        bash tab-completion for problem names

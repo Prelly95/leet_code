@@ -38,6 +38,11 @@ class Solution:
 # name isn't the camelCase of the folder and there's more than one public
 # method), name it explicitly:
 # ENTRY = "{method}"
+
+# For linked-list / tree problems, import the shared type and annotate your
+# parameters/return with it — the harness marshals the raw lists in cases.json
+# to and from the structure for you:
+#   from harness.structures import ListNode, TreeNode
 '''
 
 CASES_TEMPLATE = '''\

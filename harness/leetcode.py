@@ -162,13 +162,30 @@ def parse_examples(content_html: str) -> list[dict]:
     return cases
 
 
+def _imports_for(code: str) -> str:
+    """Build the import lines a stub needs so its annotations resolve.
+
+    LeetCode's linked-list/tree stubs reference ``ListNode``/``TreeNode`` (and
+    ``Optional``/``List``); importing the shared structures lets the runner
+    marshal raw-list cases into them automatically.
+    """
+    lines = []
+    typing_names = [n for n in ("List", "Optional") if re.search(rf"\b{n}\b", code)]
+    if typing_names:
+        lines.append(f"from typing import {', '.join(typing_names)}")
+    struct_names = [n for n in ("ListNode", "TreeNode") if re.search(rf"\b{n}\b", code)]
+    if struct_names:
+        lines.append(f"from harness.structures import {', '.join(struct_names)}")
+    return "\n".join(lines)
+
+
 def _solution_text(problem: Problem) -> str:
-    header = f"# {problem.frontend_id}. {problem.title} ({problem.difficulty})\n# {problem.url}\n"
+    header = f"# {problem.frontend_id}. {problem.title} ({problem.difficulty})\n# {problem.url}"
 
     folder = problem.slug.replace("-", "_")
     entry = ""
     if problem.method and problem.method != to_camel(folder):
-        entry = f'\nENTRY = "{problem.method}"\n'
+        entry = f'ENTRY = "{problem.method}"'
 
     code = problem.python_stub.rstrip()
     if not code:
@@ -183,7 +200,8 @@ def _solution_text(problem: Problem) -> str:
                 break
         code += f"\n{body_indent}# TODO: implement\n{body_indent}pass"
 
-    return f"{header}{entry}\n{code}\n"
+    blocks = [header, _imports_for(code), entry, code]
+    return "\n\n".join(b for b in blocks if b) + "\n"
 
 
 def _cases_text(problem: Problem, cases: list[dict]) -> str:

@@ -1,43 +1,12 @@
 # 21. Merge Two Sorted Lists (Easy)
 # https://leetcode.com/problems/merge-two-sorted-lists/description/
 
-ENTRY = "martial_inputs"
+from harness.structures import ListNode
 
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-    def to_list(self):
-        res = [self.val]
-        linked_list = self.next
-        while linked_list:
-            res.append(linked_list.val)
-            linked_list = linked_list.next
-        return res
-
-    @staticmethod
-    def new_linked_list(arr=None) -> "ListNode" | None:
-        start = None
-        if arr is not None and len(arr) > 0:
-            start = ListNode(arr[0])
-            current_node = start
-            for v in arr[1:]:
-                current_node.next = ListNode(v)
-                current_node = current_node.next
-        return start
+ENTRY = "mergeTwoLists"
 
 
 class Solution:
-    def martial_inputs(
-        self, list1: list[int] | None, list2: list[int] | None
-    ):
-
-        output = self.mergeTwoLists(ListNode.new_linked_list(list1), ListNode.new_linked_list(list2))
-        if output:
-            return output.to_list()
-        else:
-            return []
-
     def mergeTwoLists(
         self, list1: ListNode | None, list2: ListNode | None
     ) -> ListNode | None:
