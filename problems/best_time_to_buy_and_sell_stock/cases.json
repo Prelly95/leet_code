@@ -1,0 +1,9 @@
+{
+  "_comment": "LeetCode 121 — Best Time to Buy and Sell Stock (Easy). https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+  "unordered": false,
+  "cases": [
+    {"input": {"prices": [7, 1, 5, 3, 6, 4]}, "output": 5},
+    {"input": {"prices": [7, 6, 4, 3, 1]}, "output": 0},
+    {"input": {"prices": [7, 6, 4, 3, 13]}, "output": 10}
+  ]
+}
