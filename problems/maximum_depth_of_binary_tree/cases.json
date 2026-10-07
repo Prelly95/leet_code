@@ -1,0 +1,8 @@
+{
+  "_comment": "LeetCode 104 — Maximum Depth of Binary Tree (Easy). https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+  "unordered": false,
+  "cases": [
+    {"input": {"root": [3, 9, 20, null, null, 15, 7]}, "output": 3},
+    {"input": {"root": [1, null, 2]}, "output": 2}
+  ]
+}
