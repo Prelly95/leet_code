@@ -3,22 +3,22 @@
 
 ENTRY = "findMaxLength"
 
+
 class Solution:
     def findMaxLength(self, nums: list[int]) -> int:
-        sum = 0
+        prefix_sum = {0: -1}
+        current_sum = 0
         current_max = 0
-        first_index_seen = {0: -1}
 
-        for ii, n in enumerate(nums[::2]):
-            if n:
-                sum += 1
+        for ii, n in enumerate(nums):
+            if n == 0:
+                current_sum -= 1
             else:
-                sum -= 1
+                current_sum += 1
 
-            if sum not in first_index_seen:
-                first_index_seen[sum] = ii
-
-            if sum in first_index_seen:
-                current_max = max(current_max, ii - first_index_seen[sum])
+            if current_sum in prefix_sum:
+                current_max = max(current_max, ii - prefix_sum[current_sum])
+            else:
+                prefix_sum[current_sum] = ii
 
         return current_max
